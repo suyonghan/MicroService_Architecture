@@ -1,0 +1,8 @@
+server:
+  port: ${service_port:8888}
+
+spring:
+  application:
+    name: ${service_name:VALIDATE-API}
+  profiles:
+    active: ${profile:local}

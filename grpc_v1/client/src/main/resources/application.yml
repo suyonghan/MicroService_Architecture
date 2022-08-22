@@ -1,0 +1,8 @@
+grpc:
+  server:
+    address: 9090
+
+logging:
+  level:
+    root: info
+

@@ -1,0 +1,12 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:admin@127.0.0.1:8761/eureka
+  instance:
+    instance-id: ${service_name:validateApi}_${server.port}
+
+generics:
+  common:
+    mapper-path: file:src/main/resources/mapper/*.xml

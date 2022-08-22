@@ -1,0 +1,49 @@
+server:
+  port: ${service_port:8889}
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:admin@127.0.0.1:8761/eureka
+  instance:
+    hostname: api-gateway
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 10s
+
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring CLoud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+
+      routes:
+        - id: ap01-weigh-high
+          #uri: http://localhost:8881
+          uri: lb://VALIDATEAPI
+          predicates:
+            - Path=/*
+            - Weight=group-order, 5
+          filters:
+            - CustomFilter
+
+        - id: ap01-weigh-low
+          #uri: http://localhost:8882
+          uri: lb://VALIDATEAPI
+          predicates:
+            - Path=/*
+            - Weight=group-order, 5
+
+        - id: ap03
+          uri: lb://VALIDATEAPI2
+          predicates:
+            - Path=/ping

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = 'ib.api.grpc.grpc_v1';
+option java_outer_classname = 'productInfo';
+
+service ProductInfo {
+  rpc addProduct(Product) returns (ProductID);
+  rpc getProduct(ProductID) returns (Product);
+}
+
+message Product{
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+}
+
+message ProductID{
+  string value = 1;
+}

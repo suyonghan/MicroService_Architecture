@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ib.api.validate.mapper.SpamInfoMapper">
+
+    <select id="selectSpamInfoClientCodeSeq" resultType="ib.api.validate.model.SpamInfo">
+        /*selectClientInfoOrigin*/
+        select
+            CLIENT_CODE     as  CLIENT_CODE
+            ,SPAM_SEQ       as  SEQ
+            ,SPAM_CONTENTS  as  CONTENT
+        FROM
+            tb_authdb_utf8.spaminfo
+        WHERE
+            CLIENT_CODE = #{clientCode}
+            AND SPAM_SEQ = #{seq}
+    </select>
+
+    <select id="selectSpamInfoClientCode" resultType="ib.api.validate.model.SpamInfo">
+        /*selectClientInfoOrigin*/
+        select
+            CLIENT_CODE     as  CLIENT_CODE
+             ,SPAM_SEQ       as  SEQ
+             ,SPAM_CONTENTS  as  CONTENT
+        FROM
+            tb_authdb_utf8.spaminfo
+        WHERE
+            CLIENT_CODE = #{clientCode}
+    </select>
+</mapper>

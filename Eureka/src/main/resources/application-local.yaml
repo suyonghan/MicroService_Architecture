@@ -1,0 +1,9 @@
+eureka:
+  server:
+    enable-self-preservation: true # 네트워크 장애시 등록된 모든 서비스가 해제되는 것을 방지 개발에서는 false, 운영에선 true
+  instance:
+    hostname: ${peer:peer1}.127.0.0.1.nip.io
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: false
+    fetch-registry: false

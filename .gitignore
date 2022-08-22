@@ -1,0 +1,11 @@
+# 프로젝트 제외 경로
+/grpc_v1/.gradle/
+/grpc_v1/build/
+/grpc_v1/build/classes/java/main/
+/grpc_v1/build/classes/java/test/
+/grpc_v1/client/.gradle/
+/grpc_v1/client/build/
+/grpc_v1/client/build/classes/java/main/
+/grpc_v1/server/.gradle/
+/grpc_v1/server/build/
+/grpc_v1/server/build/classes/java/main/

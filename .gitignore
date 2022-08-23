@@ -9,3 +9,7 @@
 /grpc_v1/server/.gradle/
 /grpc_v1/server/build/
 /grpc_v1/server/build/classes/java/main/
+*mvnw*
+*.mvn
+HELP.md
+*grpc_v1/src/generated

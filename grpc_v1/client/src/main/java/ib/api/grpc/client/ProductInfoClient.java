@@ -1,8 +1,9 @@
 package ib.api.grpc.client;
 
-import ib.api.grpc.grpc_v1.Product;
-import ib.api.grpc.grpc_v1.ProductID;
-import ib.api.grpc.grpc_v1.ProductInfoGrpc;
+import com.google.protobuf.Any;
+import ib.api.grpc.client.service.ProductService;
+import ib.api.grpc.grpc_v1.*;
+import ib.api.grpc.grpc_v1.Exception;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -16,18 +17,21 @@ public class ProductInfoClient {
                 .usePlaintext()
                 .build();
 
-        ProductInfoGrpc.ProductInfoBlockingStub stub = ProductInfoGrpc.newBlockingStub(channel);
-
-        ProductID productID = stub.addProduct(Product.newBuilder()
+        ProductService productService = new ProductService(channel);
+        productService.processProduct(Product.newBuilder()
                 .setName("Apple IPhone 14")
                 .setDescription("suyong want to get a new Iphone")
                 .setPrice(1600.0f)
                 .build());
 
-        log.info(productID.getValue());
-
-        Product product = stub.getProduct(productID);
-        log.info(product.toString());
+        productService.processProductV4(ProductV4.newBuilder()
+                .setName("any-type using-test")
+                .setException(Any.pack(Exception.newBuilder()
+                                .setTitle("none")
+                                .setDetailMessage("none")
+                                .setErrorCode("0000")
+                        .build()))
+                .build());
         channel.shutdown();
     }
 }

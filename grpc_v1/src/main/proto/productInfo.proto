@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/any.proto";
+
 option java_multiple_files = true;
 option java_package = 'ib.api.grpc.grpc_v1';
 option java_outer_classname = 'productInfo';
@@ -7,6 +9,15 @@ option java_outer_classname = 'productInfo';
 service ProductInfo {
   rpc addProduct(Product) returns (ProductID);
   rpc getProduct(ProductID) returns (Product);
+
+  rpc addProductV2(ProductV2) returns (ProductID);
+  rpc getProductV2(ProductID) returns (ProductV2);
+
+  rpc addProductV3(ProductV3) returns (ProductID);
+  rpc getProductV3(ProductID) returns (ProductV3);
+
+  rpc addProductV4(ProductV4) returns (ProductID);
+  rpc getProductV4(ProductID) returns (ProductV4);
 }
 
 message Product{
@@ -19,3 +30,40 @@ message Product{
 message ProductID{
   string value = 1;
 }
+
+message ProductV2{
+  string id = 1;
+  string name = 2;
+  enum status {
+    READY = 0;
+    REQUEST = 1;
+    REQUEST_PROCESSING = 2;
+    REQUEST_SUCCESS = 3;
+    REQUEST_FAILED = 4;
+    REPORT_PROCESSING = 5;
+    REPORT_SUCCESS = 6;
+    REPORT_FAILED = 7;
+    IDLE = 8;
+    UNKNOWN = 9;
+  }
+}
+
+message ProductV3{
+  string id = 1;
+  string name = 2;
+  repeated string options = 3;
+}
+
+message ProductV4{
+  string id = 1;
+  string name = 2;
+  google.protobuf.Any Exception = 3;
+  map<string, google.protobuf.Any> ref = 4;
+}
+
+message Exception{
+  string title = 1 ;
+  string errorCode = 2;
+  string detailMessage = 3;
+}
+
